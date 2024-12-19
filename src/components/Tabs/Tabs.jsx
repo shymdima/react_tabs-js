@@ -1,36 +1,37 @@
-import classNames from "classnames";
-export const Tabs = ({tabs, activeTabId, onTabSelected, setOnTabSelected, setActiveTabId}) => {
-    let i = 0;
-    return (
-        <div data-cy="TabsComponent">
-        <div className="tabs is-boxed">
+import classNames from 'classnames';
+
+export const Tabs = ({
+  tabs,
+  activeTabId,
+  onTabSelected,
+}) => {
+
+  return (
+    <div data-cy="TabsComponent">
+      <div className="tabs is-boxed">
         <ul>
           {tabs.map(tab => {
-            
             return (
-                <li className={classNames({'is-active' : activeTabId === tab.id})} 
+              <li
+                className={classNames({ 'is-active': activeTabId === tab.id })}
                 data-cy="Tab"
-                onClick={ () => {
-                    setOnTabSelected(tab)
-                    setActiveTabId(tab.id)
+                onClick={() => {
+                  onTabSelected(tab.id);
                 }}
                 key={tab.id}
-                >
-                    <a href={`#${activeTabId.id}`} data-cy="TabLink">
-                    {tab.title}
-                    </a>
-                </li> 
-            )
-        })}
+              >
+                <a href={`#${tab.id}`} data-cy="TabLink">
+                  {tab.title}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
       <div className="block" data-cy="TabContent">
-        {onTabSelected.content}
+        {tabs.find(tab => (tab.id === activeTabId)).content}
       </div>
     </div>
-    )
+  );
 };
-
-
-          
